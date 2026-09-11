@@ -4,227 +4,64 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="theme-color" content="#f6efe3" />
-  <title>立志 · 三幅海报</title>
+  <meta name="theme-color" content="#111" />
+  <title>立志</title>
   <style>
-    :root {
-      --paper: #f6efe3;
-      --ink: #1a1714;
-      --muted: #6b6258;
-      --yellow: #f0c400;
-      --blue: #1d4aa3;
-      --red: #c31c32;
-      --line: rgba(26, 23, 20, 0.12);
-    }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html, body {
-      height: 100%;
-      background: var(--paper);
-      color: var(--ink);
-      font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
-      overflow: hidden;
-    }
-
-    .app {
+    html, body { height: 100%; background: #111; overflow: hidden; }
+    .stage {
       height: 100vh;
       height: 100dvh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    header {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 12px;
-      padding: calc(10px + env(safe-area-inset-top)) 18px 10px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .brand {
-      display: flex;
-      align-items: baseline;
-      gap: 10px;
-    }
-
-    .brand h1 {
-      font-size: 22px;
-      letter-spacing: 0.28em;
-      font-weight: 700;
-    }
-
-    .brand span,
-    .counter {
-      font-size: 12px;
-      color: var(--muted);
-      letter-spacing: 0.12em;
-    }
-
-    .stage {
-      flex: 1 1 auto;
-      min-height: 0;
       position: relative;
-      display: flex;
     }
-
-    article {
+    .slide {
       display: none;
-      flex: 1 1 auto;
-      min-width: 0;
-      padding: 10px 16px 0;
-      flex-direction: column;
-    }
-
-    article.is-on {
-      display: flex;
-    }
-
-    .frame {
-      flex: 1 1 auto;
-      min-height: 0;
-      display: flex;
+      height: 100%;
       align-items: center;
       justify-content: center;
+      padding: env(safe-area-inset-top) 8px env(safe-area-inset-bottom);
     }
-
-    .frame img {
+    .slide.is-on { display: flex; }
+    .slide img {
       max-width: 100%;
       max-height: 100%;
       object-fit: contain;
       display: block;
-      background: #fff;
-      box-shadow: 0 16px 36px rgba(26, 23, 20, 0.12);
     }
-
-    .meta {
-      flex: 0 0 auto;
-      padding: 10px 2px 6px;
-    }
-
-    .kicker {
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      margin-bottom: 4px;
-    }
-
-    article[data-tone="yellow"] .kicker { color: var(--yellow); }
-    article[data-tone="blue"] .kicker { color: var(--blue); }
-    article[data-tone="red"] .kicker { color: var(--red); }
-
-    .meta h2 {
-      font-size: 18px;
-      letter-spacing: 0.08em;
-      line-height: 1.35;
-      margin-bottom: 6px;
-    }
-
-    .meta p {
-      font-size: 12px;
-      line-height: 1.7;
-      color: var(--muted);
-    }
-
-    footer {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 16px calc(12px + env(safe-area-inset-bottom));
-    }
-
     .dots {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: calc(12px + env(safe-area-inset-bottom));
       display: flex;
+      justify-content: center;
       gap: 8px;
     }
-
     .dots button {
-      width: 8px;
-      height: 8px;
+      width: 7px;
+      height: 7px;
       border: 0;
       border-radius: 50%;
-      background: #cbbda8;
+      background: rgba(255, 255, 255, 0.35);
       cursor: pointer;
     }
-
-    .dots button[aria-current="true"] {
-      background: var(--ink);
-      transform: scale(1.25);
-    }
-
-    .hint {
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      color: var(--muted);
-    }
-
-    @media (min-width: 900px) {
-      .meta h2 { font-size: 24px; }
-      .meta p { font-size: 14px; max-width: 720px; }
-      article { padding-left: 32px; padding-right: 32px; }
-    }
+    .dots button[aria-current="true"] { background: #fff; }
   </style>
 </head>
 <body>
-  <div class="app">
-    <header>
-      <div class="brand">
-        <h1>立志</h1>
-        <span>三幅海报</span>
-      </div>
-      <div class="counter" id="counter">01 / 03</div>
-    </header>
-
-    <div class="stage" id="stage">
-      <article class="is-on" data-tone="yellow">
-        <div class="frame">
-          <img src="images/01.jpg" alt="守望相助，躬行致远" />
-        </div>
-        <div class="meta">
-          <div class="kicker">第一幅 · 黄</div>
-          <h2>守望相助，躬行致远</h2>
-          <p>踏遍千山万水，进社区入乡村，传递世间温暖真情。扎根基层沃土，走田埂访农家，书写青春时代担当。以守望初心温暖角落，以躬行实干共筑家园。</p>
-        </div>
-      </article>
-
-      <article data-tone="blue">
-        <div class="frame">
-          <img src="images/02.jpg" alt="科教兴国，同舟共济" />
-        </div>
-        <div class="meta">
-          <div class="kicker">第二幅 · 蓝</div>
-          <h2>科教兴国，同舟共济</h2>
-          <p>仰望浩瀚星河，探苍穹破未知，勇攀科技创新高峰。携手同心同行，聚众力克难关，共赴民族复兴伟业。以博学才智攻克险阻，以团结一心同创辉煌。</p>
-        </div>
-      </article>
-
-      <article data-tone="red">
-        <div class="frame">
-          <img src="images/03.jpg" alt="长征铸魂，立志修身" />
-        </div>
-        <div class="meta">
-          <div class="kicker">第三幅 · 红</div>
-          <h2>长征铸魂，立志修身</h2>
-          <p>回望万里征途，踏雪山过草地，炼就一身红色风骨。传承先辈薪火，守初心担使命，涵养浩然正气品格。以长征精神砥砺心志，以崇德修身端正言行。</p>
-        </div>
-      </article>
+  <div class="stage" id="stage">
+    <div class="slide is-on"><img src="images/01.jpg" alt="" /></div>
+    <div class="slide"><img src="images/02.jpg" alt="" /></div>
+    <div class="slide"><img src="images/03.jpg" alt="" /></div>
+    <div class="dots" id="dots">
+      <button type="button" aria-label="1" aria-current="true"></button>
+      <button type="button" aria-label="2"></button>
+      <button type="button" aria-label="3"></button>
     </div>
-
-    <footer>
-      <div class="dots" id="dots">
-        <button type="button" aria-label="第一幅" aria-current="true"></button>
-        <button type="button" aria-label="第二幅"></button>
-        <button type="button" aria-label="第三幅"></button>
-      </div>
-      <div class="hint">左右滑动查看</div>
-    </footer>
   </div>
-
   <script>
-    const slides = [...document.querySelectorAll("article")];
+    const slides = [...document.querySelectorAll(".slide")];
     const dots = [...document.querySelectorAll("#dots button")];
-    const counter = document.getElementById("counter");
     const stage = document.getElementById("stage");
     let index = 0;
     let startX = 0;
@@ -236,21 +73,17 @@
         if (i === index) dot.setAttribute("aria-current", "true");
         else dot.removeAttribute("aria-current");
       });
-      counter.textContent = String(index + 1).padStart(2, "0") + " / 03";
     };
 
     dots.forEach((dot, i) => dot.addEventListener("click", () => show(i)));
-
     stage.addEventListener("touchstart", (e) => {
       startX = e.changedTouches[0].clientX;
     }, { passive: true });
-
     stage.addEventListener("touchend", (e) => {
       const dx = e.changedTouches[0].clientX - startX;
       if (dx > 40) show(index - 1);
       if (dx < -40) show(index + 1);
     }, { passive: true });
-
     window.addEventListener("keydown", (e) => {
       if (e.key === "ArrowRight") show(index + 1);
       if (e.key === "ArrowLeft") show(index - 1);
